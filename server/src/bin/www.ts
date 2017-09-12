@@ -1,8 +1,6 @@
 import app from '../server';
-import * as debugModule from 'debug';
 import * as http from 'http';
 
-const debug = debugModule('node-express-typescript:server');
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || '3000');
@@ -36,7 +34,7 @@ function normalizePort(val: any): number | string | boolean {
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error) {
+function onError(error: any) {
     if (error.syscall !== 'listen') {
         throw error;
     }

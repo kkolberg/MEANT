@@ -1,3 +1,2 @@
 node_modules
-client/app
-server/app
+dist

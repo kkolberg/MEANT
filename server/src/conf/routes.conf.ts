@@ -12,7 +12,7 @@ export class RoutesConfig {
         let _root = process.cwd();
         let _nodeModules = "/node_modules/";
         let _jspmPackages = "/jspm_packages/";
-        let _clientFiles = "client/app/";
+        let _clientFiles = "/client/";
 
         application.use(compression({
             level: zlib.Z_BEST_COMPRESSION,

@@ -4,6 +4,7 @@
 const { CheckerPlugin } = require('awesome-typescript-loader')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 
@@ -38,6 +39,12 @@ module.exports = {
       template: __dirname + '/src/index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }), new webpack.ContextReplacementPlugin(
+      // if you have anymore problems tweet me at @gdi2290
+      // The (\\|\/) piece accounts for path separators for Windows and MacOS
+      /(.+)?angular(\\|\/)core(.+)?/,
+      path.join(__dirname, 'src'), // location of your src
+      {} // a map of your routes 
+    )
   ]
 };
