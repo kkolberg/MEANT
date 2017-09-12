@@ -2,34 +2,42 @@
 // We need this plugin to detect a `--watch` mode. It may be removed later 
 // after https://github.com/webpack/webpack/issues/3460 will be resolved. 
 const { CheckerPlugin } = require('awesome-typescript-loader')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require('path');
 
 module.exports = {
 
- // Currently we need to add '.ts' to the resolve.extensions array. 
- resolve: {
-   extensions: ['.ts', '.tsx', '.js', '.jsx']
- },
+  // Currently we need to add '.ts' to the resolve.extensions array. 
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  },
 
- // Source maps support ('inline-source-map' also works) 
- devtool: 'source-map',
+  // Source maps support ('inline-source-map' also works) 
+  devtool: 'source-map',
 
- // Add the loader for .ts files. 
- module: {
-   loaders: [
-     {
-       test: /\.tsx?$/,
-       loader: 'awesome-typescript-loader?{configFileName: "client/tsconfig.json"}'
-     }
-   ]
- },
+  // Add the loader for .ts files. 
+  module: {
+    loaders: [
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader?{configFileName: "client/tsconfig.json"}'
+      }
+    ]
+  },
 
- entry: {
-    'app': './client/src/main.ts'
+  entry: {
+    polyfills: "./client/src/polyfills.ts",
+    main: "./client/src/main.ts"
   },
   output: {
-    filename: './client/app/app.js'
+    filename: './[name].js'
   },
- plugins: [
-     new CheckerPlugin()
- ]
+  plugins: [
+    new CheckerPlugin(),
+    new HtmlWebpackPlugin({
+      template: __dirname + '/src/index.html',
+      filename: 'index.html',
+      inject: 'body'
+    })
+  ]
 };
